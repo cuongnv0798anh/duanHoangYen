@@ -4,16 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Respon {
+@Data
+public class ResponSum {
     private Integer errorCode;
     private String errorMessenger;
-    private Integer getMoneyTour;
-    private Integer getCountTour;
+    private Integer getSumUser;
+    private Integer getSumAngency;
+    private Integer getSumAll;
 
-    public Respon(Integer errorCode, String errorMessenger) {
+    public ResponSum(Integer errorCode, String errorMessenger) {
         this.errorCode = errorCode;
         this.errorMessenger = errorMessenger;
     }

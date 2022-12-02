@@ -1,5 +1,7 @@
 package com.example.duan_dulich.controller;
 
+import com.example.duan_dulich.model.bo.Respon;
+import com.example.duan_dulich.model.bo.ResponSum;
 import com.example.duan_dulich.model.bo.ResponseCRUD;
 import com.example.duan_dulich.model.bo.SystemResponse;
 import com.example.duan_dulich.model.entity.Account;
@@ -12,6 +14,7 @@ import com.example.duan_dulich.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -59,6 +62,26 @@ public ResponseEntity verifyAgency(@RequestParam Integer id){
         List<Account> list = accountRepository.getAllByRoles(role);
         return ResponseEntity.ok(new ResponseCRUD(list));
     }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/role/{id}")
+    ResponSum get(@PathVariable Integer id){
+        int getSumAngency = 0;
+        int getSumUser=0;
+        int getSumAll=0;
+        switch (id){
+            case 1 :
+                getSumUser = accountRepository.getSum(id);
+                break;
+            case 3 :
+                getSumAngency = accountRepository.getSum(id);
+                break;
+        }
+        getSumAll = accountRepository.getSumAll();
+        return new ResponSum(0,"Success",getSumUser,getSumAngency,getSumAll);
+    }
+
+
+
     @GetMapping(value = "/test")
     public ResponseEntity<?> test(){
         return new ResponseEntity<>("ok test thanh cong", HttpStatus.OK);

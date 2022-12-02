@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 import java.text.ParseException;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -149,11 +148,11 @@ public class TourController {
          int getMoneyTour = 0;
          int getTongTour = 0;
          if(tourReponsitory.existsById(id)==false){
-             return new Respon("1","Not exits account");
+             return new Respon(1,"Not exits account");
          }
         getMoneyTour = tourReponsitory.tongSoTienAngency(id);
         getTongTour = tourReponsitory.tongSoTourAngency(id);
-        return new Respon("0","Success",getMoneyTour,getTongTour);
+        return new Respon(0,"Success",getMoneyTour,getTongTour);
     }
 }
 
